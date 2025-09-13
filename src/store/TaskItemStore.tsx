@@ -8,6 +8,7 @@ export const useTaskStore = create<TaskItemProps>((set) => ({
   addTask: (title, description, dueDate, assignee) =>
     set((state) => ({
       tasks: [
+
         {
           id: uuidv4(),
           title,
@@ -35,4 +36,6 @@ export const useTaskStore = create<TaskItemProps>((set) => ({
     set((state) => ({
       tasks: state.tasks.filter((task) => task.id !== id),
     })),
-}));
+}),
+  
+);
