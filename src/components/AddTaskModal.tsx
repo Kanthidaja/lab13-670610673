@@ -12,6 +12,7 @@ import {
 } from "@mantine/core";
 import { DateInput } from "@mantine/dates";
 import { useTaskFormStore } from "../store/TaskFromStore1";
+import {useEffect} from 'react'
 
 interface AddTaskModalProps {
   opened: boolean;
@@ -75,11 +76,34 @@ export default function AddTaskModal({
     setAssignee,
     resetForm,
   } = useTaskFormStore();
-  const handleAdd = () => {
-    if (!title.trim() || !description.trim() || !dueDate ||assignee.length === 0) return;
+
+    useEffect(() => {
+    const formData = {
+      title,
+      description,
+      dueDate,
+      assignee,
+    };
+    localStorage.setItem("taskFormDraft", JSON.stringify(formData));
+  }, [title, description, dueDate, assignee]);
+
+    useEffect(() => {
+    const saved = localStorage.getItem("taskFormDraft");
+    if (saved) {
+      const data = JSON.parse(saved);
+      if (data.title) setTitle(data.title);
+      if (data.description) setDescription(data.description);
+      if (data.dueDate) setDueDate(data.dueDate);
+      if (data.assignee) setAssignee(data.assignee);
+    }
+  }, []);
+
+    const handleAdd = () => {
+    if (!title.trim() || !description.trim() || !dueDate || assignee.length === 0) return;
     onAdd(title, description, dueDate, assignee);
     onClose();
     resetForm();
+    localStorage.removeItem("taskFormDraft"); // ✅ Clear draft after save
   };
 
   return (
