@@ -6,7 +6,7 @@ import {
   Stack,
   Card,
   Group,
-  Checkbox,
+  Checkbox,Badge,
   ActionIcon,
 } from "@mantine/core";
 import { IconTrash } from "@tabler/icons-react";
@@ -40,7 +40,19 @@ export default function HomePage() {
             <Card withBorder shadow="sm" radius="md" mb="sm" key={task.id}>
               <Group justify="space-between" align="flex-start">
                 <Stack>
-                  {/* เพิ่ม assignees ตรงนี้*/}
+                  {/* /* เพิ่ม assignees ตรงนี้*/ }
+                  <Group>
+                   {task.assignee.map((assignee) => (
+                  <Badge
+                   key={assignee}
+                   c="blue"
+                   color="rgba(201, 240, 255, 1)"
+                   >
+                   {assignee}
+                  </Badge>
+                   ))}
+                   </Group>
+
                   <Text
                     fw={600}
                     td={task.isDone ? "line-through" : "none"}

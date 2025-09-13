@@ -5,6 +5,7 @@ interface TaskProps {
   dueDate: string | null;
   isDone: boolean;
   doneAt: string | null;
+  assignee: string[];
 }
 export type { TaskProps }
 
@@ -15,6 +16,7 @@ interface TaskItemProps {
     title: string,
     description: string,
     dueDate: string | null,
+    assignee: string[]
   ) => void;
   toggleTask: (id: string) => void;
   removeTask: (id: string) => void;
@@ -25,9 +27,11 @@ interface TaskFormState {
   title: string,
   description: string,
   dueDate: string | null,
-  setTasks: (title: string) => void;
-  setdescription: (description: string) => void;
-  setdueDate: (dueDate: string | null) => void;
+  assignee: string[],
+  setTitle: (title: string) => void;
+  setDescription: (description: string) => void;
+  setDueDate: (dueDate: string | null) => void;
+  setAssignee: (assignee: string[]) => void;
   resetForm: () => void;
 }
 export type { TaskFormState }
